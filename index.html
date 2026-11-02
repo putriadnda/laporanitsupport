@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan IT Support</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fa;
+    color: #1e293b;
+}
+
+header {
+    background: #17324d;
+    color: white;
+    padding: 25px 5%;
+}
+
+header h1 {
+    margin-bottom: 7px;
+}
+
+header p {
+    color: #d6e2ef;
+    font-size: 14px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #dce3ec;
+}
+
+.panel h2 {
+    font-size: 19px;
+    margin-bottom: 20px;
+    color: #17324d;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 85px;
+    resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 2px solid #bfdbfe;
+    border-color: #2563eb;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 11px 16px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary {
+    background: #2563eb;
+    color: white;
+}
+
+.secondary {
+    background: #e8eef6;
+    color: #243b53;
+}
+
+.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.toolbar h2 {
+    margin: 0;
+}
+
+.search {
+    max-width: 280px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+}
+
+th, td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+}
+
+.empty {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.done {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.progress {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.pending {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.row-actions button {
+    padding: 6px 9px;
+    font-size: 12px;
+}
+
+.note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+@media(max-width: 650px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+}
+
+
+@media print {
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    header {
+        background: white;
+        color: black;
+        border-bottom: 2px solid black;
+        padding: 0 0 15px;
+        font-size: 12px; /* Ubah ukuran judul PDF di sini */
+        font-weight: bold;
+    }
+
+    header p {
+        color: #444;
+    }
+
+    main {
+        margin: 15px 0;
+        padding: 0;
+    }
+
+    /* Sembunyikan elemen yang tidak perlu dicetak */
+    .form-panel,
+    .no-print,
+    .note,
+    .search {
+        display: none !important;
+    }
+
+    .panel {
+        border: none;
+        padding: 0;
+    }
+
+    .toolbar {
+        display: block;
+    }
+
+    .toolbar h2 {
+        margin-bottom: 15px;
+    }
+
+    table {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+    }
+
+    th, td {
+        font-size: 9px;
+        padding: 7px 5px;
+        overflow-wrap: anywhere;
+    }
+
+    th {
+        background: #eee !important;
+        print-color-adjust: exact;
+    }
+
+    .status {
+        background: none;
+        color: black;
+        padding: 0;
+    }
+
+    @page {
+        size: landscape;
+        margin: 12mm;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>LAPORAN IT SUPPORT</h1>
+</header>
+
+<main>
+
+<section class="panel form-panel">
+
+    <h2>Formulir Laporan</h2>
+
+    <form id="reportForm">
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Tanggal</label>
+                <input type="date" id="tanggal" required>
+            </div>
+
+            <div class="field">
+                <label>Waktu</label>
+                <input type="time" id="waktu" required>
+            </div>
+
+            <div class="field">
+                <label>Unit</label>
+                <input type="text" id="unit"
+                placeholder="Masukkan nama unit" required>
+            </div>
+
+            <div class="field">
+                <label>Kategori Kegiatan</label>
+                <select id="kategori" required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="Trouble">Trouble</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+            </div>
+
+            <div class="field full">
+                <label>Kegiatan</label>
+                <textarea id="kegiatan"
+                placeholder="Masukkan kegiatan yang dilakukan"
+                required></textarea>
+            </div>
+
+            <div class="field">
+                <label>Jenis</label>
+                <input type="text" id="jenis"
+                placeholder="Masukkan jenis kegiatan" required>
+            </div>
+
+            <div class="field">
+                <label>Status</label>
+                <select id="status" required>
+                    <option value="">Pilih Status</option>
+                    <option value="Selesai">Selesai</option>
+                    <option value="Dalam Proses">Dalam Proses</option>
+                    <option value="Belum Selesai">Belum Selesai</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="primary"
+            id="submitBtn">Tambah Laporan</button>
+
+            <button type="reset" class="secondary"
+            id="resetBtn">Reset Form</button>
+        </div>
+
+    </form>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="toolbar">
+
+        <input type="search" id="search"
+        class="search"
+        placeholder="Cari unit atau kegiatan...">
+
+        <div class="actions no-print" style="margin:0">
+
+            <button class="secondary"
+            id="clearBtn">Hapus Semua</button>
+
+            <button class="primary"
+            id="pdfBtn">Cetak / Simpan PDF</button>
+
+        </div>
+
+    </div>
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Unit</th>
+                    <th>Kategori Kegiatan</th>
+                    <th>Kegiatan</th>
+                    <th>Jenis</th>
+                    <th>Status</th>
+                    <th class="no-print">Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="reportRows">
+                <tr>
+                    <td colspan="8" class="empty">
+                        Belum ada laporan.
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <p class="note">
+        Klik Cetak / Simpan PDF untuk mengunduh
+        laporan dalam bentuk PDF.
+    </p>
+
+</section>
+
+</main>
+
+
+<script>
+
+const STORAGE_KEY = "itSupportReports_v1";
+
+let reports = [];
+let editingId = null;
+
+const $ = id => document.getElementById(id);
+
+
+// Memuat data dari browser
+function load() {
+
+    try {
+        reports = JSON.parse(
+            localStorage.getItem(STORAGE_KEY) || "[]"
+        );
+    } catch (e) {
+        reports = [];
+    }
+
+    render();
+}
+
+
+// Menyimpan data
+function save() {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(reports)
+    );
+}
+
+
+// Mencegah karakter HTML masuk ke tabel
+function esc(value) {
+    return String(value ?? "").replace(
+        /[&<>"']/g,
+        c => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[c]
+    );
+}
+
+
+// Menentukan warna status
+function statusClass(status) {
+
+    if (status === "Selesai") return "done";
+
+    if (status === "Dalam Proses") return "progress";
+
+    return "pending";
+}
+
+
+// Menampilkan laporan
+function render() {
+
+    const keyword = $("search").value
+        .toLowerCase()
+        .trim();
+
+    const filtered = reports.filter(r =>
+        [
+            r.unit,
+            r.kegiatan,
+            r.kategori,
+            r.jenis,
+            r.status
+        ].join(" ").toLowerCase().includes(keyword)
+    );
+
+    $("reportRows").innerHTML = filtered.length
+
+        ? filtered.map(r => `
+
+            <tr>
+                <td>${esc(r.tanggal)}</td>
+                <td>${esc(r.waktu)}</td>
+                <td>${esc(r.unit)}</td>
+                <td>${esc(r.kategori)}</td>
+                <td>${esc(r.kegiatan).replace(/\n/g, "<br>")}</td>
+                <td>${esc(r.jenis)}</td>
+
+                <td>
+                    <span class="status ${statusClass(r.status)}">
+                        ${esc(r.status)}
+                    </span>
+                </td>
+
+                <td class="row-actions no-print">
+
+                    <button class="secondary"
+                    onclick="editReport('${r.id}')">
+                        Edit
+                    </button>
+
+                    <button class="danger"
+                    onclick="deleteReport('${r.id}')">
+                        Hapus
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `).join("")
+
+        : `
+            <tr>
+                <td colspan="8" class="empty">
+                    Tidak ada laporan yang ditemukan.
+                </td>
+            </tr>
+        `;
+}
+
+
+// Menambah dan mengubah laporan
+$("reportForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const data = {
+
+        tanggal: $("tanggal").value,
+        waktu: $("waktu").value,
+        unit: $("unit").value.trim(),
+        kategori: $("kategori").value,
+        kegiatan: $("kegiatan").value.trim(),
+        jenis: $("jenis").value.trim(),
+        status: $("status").value
+
+    };
+
+    if (editingId) {
+
+        reports = reports.map(r =>
+            r.id === editingId
+                ? { ...r, ...data }
+                : r
+        );
+
+        editingId = null;
+
+        $("submitBtn").textContent = "Tambah Laporan";
+
+    } else {
+
+        reports.unshift({
+            id: String(Date.now()) +
+                Math.random().toString(16).slice(2),
+            ...data
+        });
+
+    }
+
+    save();
+    render();
+
+    $("reportForm").reset();
+
+});
+
+
+// Mengedit laporan
+function editReport(id) {
+
+    const report = reports.find(r => r.id === id);
+
+    if (!report) return;
+
+    editingId = id;
+
+    $("tanggal").value = report.tanggal;
+    $("waktu").value = report.waktu;
+    $("unit").value = report.unit;
+    $("kategori").value = report.kategori;
+    $("kegiatan").value = report.kegiatan;
+    $("jenis").value = report.jenis;
+    $("status").value = report.status;
+
+    $("submitBtn").textContent = "Simpan Perubahan";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// Menghapus satu laporan
+function deleteReport(id) {
+
+    if (!confirm("Hapus laporan ini?")) return;
+
+    reports = reports.filter(r => r.id !== id);
+
+    save();
+    render();
+
+}
+
+
+// Pencarian laporan
+$("search").addEventListener("input", render);
+
+
+// Cetak atau simpan PDF
+
+$("pdfBtn").addEventListener("click", function() {
+
+    if (reports.length === 0) {
+        alert("Belum ada laporan untuk dicetak.");
+        return;
+    }
+
+    const searchInput = $("search");
+    const oldSearch = searchInput.value;
+
+    // Tampilkan semua laporan sebelum mencetak
+    searchInput.value = "";
+    render();
+
+    window.print();
+
+    // Kembalikan pencarian setelah jendela cetak ditutup
+    searchInput.value = oldSearch;
+    render();
+
+});
+
+
+
+// Menghapus semua laporan
+$("clearBtn").addEventListener("click", function() {
+
+    if (reports.length === 0) return;
+
+    if (confirm("Yakin ingin menghapus semua laporan?")) {
+
+        reports = [];
+
+        save();
+        render();
+
+    }
+
+});
+
+
+// Reset formulir
+$("resetBtn").addEventListener("click", function() {
+
+    editingId = null;
+
+    $("submitBtn").textContent = "Tambah Laporan";
+
+});
+
+
+// Tanggal otomatis hari ini
+$("tanggal").value = new Date()
+    .toISOString()
+    .slice(0, 10);
+
+
+// Jalankan aplikasi
+load();
+
+</script>
+
+</body>
+</html>
